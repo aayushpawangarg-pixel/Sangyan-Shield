@@ -54,4 +54,4 @@ def detect_red_flags(text):
 red_flags = detect_red_flags(cleaned_text)
 print("===== RED FLAGS =====")
 for flag in red_flags:
-    print("RED", flag)
+    print("RED FLAG:", flag)
