@@ -33,19 +33,19 @@ def detect_red_flags(text):
     flags = []
     text_lower = text.lower()
 
-    # 1. Guaranteed / unrealistic returns
+    #  Guaranteed / unrealistic returns
     if any(word in text_lower for word in [ "guaranteed", "assured profit", "risk-free", "no loss", "fixed return"]):
         flags.append("Guaranteed or risk-free return claim")
 
-    # 2. Regulatory claims
+    # Regulatory claims
     if any(phrase in text_lower for phrase in [ "sebi approved", "sebi registered", "government approved"]):
         flags.append("Regulatory approval claim")
 
-    # 3. Urgency
+    # Urgency
     if any(word in text_lower for word in [ "limited", "urgent", "act now", "today only", "last chance"]):
         flags.append("Urgency tactic")
 
-    # 4. Money request
+    # Money request
     if any(word in text_lower for word in [ "invest", "send money", "transfer", "pay now", "deposit"]):
         flags.append("Request for money")
     return flags
