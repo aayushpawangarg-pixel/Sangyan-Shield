@@ -52,3 +52,37 @@ red_flags = detect_red_flags(cleaned_text)
 print("===== RED FLAGS =====")
 for flag in red_flags:
     print("RED FLAG:", flag)'''
+
+def detect_red_flags(text):
+    text_lower = text.lower()
+    flags = []
+
+    patterns = {
+        "Guarenteed or Risk free return claim": ["guarenteed",
+        "assured profit",
+        "risk-free",
+        "no loss",
+        "fixed return"
+        ],
+        "Regulatory approval claim": ["SEBI approved",
+            "SEBI registered",
+            "Government approved"
+        ],
+        "Urgency tactic": [
+            "limited slots",
+            "limited time",
+            "urgent",
+            "act now",
+            "today only",
+            "last chance"
+        ],
+        "Request to invest or transfer money": [
+            "invest",
+            "send money",
+            "transfer money",
+            "pay now",
+            "deposit"
+        ]
+
+    }
+     
