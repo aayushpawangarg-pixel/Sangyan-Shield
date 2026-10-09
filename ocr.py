@@ -1,7 +1,8 @@
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 import cv2
 import os
+
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 image_path = os.path.join(os.path.dirname(__file__), "scam1.jpeg")
 img = cv2.imread(image_path)
@@ -28,7 +29,7 @@ def clean_ocr_text(text):
 raw_text = pytesseract.image_to_string(img)
 
 cleaned_text = clean_ocr_text(raw_text)
-'''print("===== CLEANED TEXT =====")
+'''print("--- CLEANED TEXT ---")
 print(cleaned_text)'''
 
 '''#detecting red flags in the text
@@ -49,7 +50,7 @@ def detect_red_flags(text):
         flags.append("Request for money")
     return flags
 red_flags = detect_red_flags(cleaned_text)
-print("===== RED FLAGS =====")
+print("--- RED FLAGS ---")
 for flag in red_flags:
     print("RED FLAG:", flag)'''
 
@@ -57,7 +58,8 @@ def detect_red_flags(text):
     text_lower = text.lower()
     flags = []
 
-    patterns = {
+    patterns = 
+    {
         "Guarenteed or Risk free return claim": ["guarenteed",
         "assured profit",
         "risk-free",
@@ -83,6 +85,12 @@ def detect_red_flags(text):
             "pay now",
             "deposit"
         ]
-
     }
-     
+    for category, scam_message in patterns.items():
+        for sentence in scam_message:
+            if sentence in text_lower:
+                flags.append({"category": category , "matched_scam_message": sentence})
+
+    return flags
+
+red_flags = detect_red_flags(cleaned_text)
