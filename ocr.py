@@ -8,14 +8,16 @@ image_path = os.path.join(os.path.dirname(__file__), "scam1.jpeg")
 img = cv2.imread(image_path)
 
 if img is None:
-    print("Error: Could not read the image.")
+    raise FileNotFoundError(
+        f"Could not read image: {image_path}"
+    )
 
 #cv2.imshow("window", img)
 #cv2.waitKey(0)  
 #cv2.destroyAllWindows()
 
 #text = pytesseract.image_to_string(img)
-#print("===== RAW OCR TEXT =====")
+#print(" RAW OCR TEXT ")
 #print(text)
 
 def clean_ocr_text(text):
@@ -29,7 +31,7 @@ def clean_ocr_text(text):
 raw_text = pytesseract.image_to_string(img)
 
 cleaned_text = clean_ocr_text(raw_text)
-'''print("--- CLEANED TEXT ---")
+'''print(" CLEANED TEXT ")
 print(cleaned_text)'''
 
 '''#detecting red flags in the text
@@ -50,7 +52,7 @@ def detect_red_flags(text):
         flags.append("Request for money")
     return flags
 red_flags = detect_red_flags(cleaned_text)
-print("--- RED FLAGS ---")
+print(" RED FLAGS ")
 for flag in red_flags:
     print("RED FLAG:", flag)'''
 
@@ -58,16 +60,18 @@ def detect_red_flags(text):
     text_lower = text.lower()
     flags = []
 
-    patterns = 
-    {
-        "Guarenteed or Risk free return claim": ["guarenteed",
+    patterns = {
+        "Guaranteed or risk-free return claim": [
+        "guaranteed",
         "assured profit",
         "risk-free",
+        "risk free",
         "no loss",
-        "fixed return"
+        "fixed return",
+        "fixed returns"
         ],
-        "Regulatory approval claim": ["SEBI approved",
-            "SEBI registered",
+        "Regulatory approval claim": ["sebi approved",
+            "sebi registered",
             "Government approved"
         ],
         "Urgency tactic": [
@@ -94,3 +98,12 @@ def detect_red_flags(text):
     return flags
 
 red_flags = detect_red_flags(cleaned_text)
+
+print("\n   RISK INDICATORS  \n")
+
+if red_flags:
+    for flag in red_flags:
+        print(f" WARNING: {flag['category']} : {flag['matched_scam_message']} detected... \n")
+
+else:
+    print("No configured warning patterns detected.")
