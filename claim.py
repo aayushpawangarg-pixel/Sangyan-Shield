@@ -34,16 +34,3 @@ def extract_claims(text):
                 })
 
     return claims
-
-
-if __name__ == "__main__":
-    sample_text = """
-    Guaranteed 30% monthly returns.
-    SEBI approved.
-    Limited slots available.
-    """
-
-    results = extract_claims(sample_text)
-
-    for claim in results:
-        print(claim)
