@@ -2,10 +2,11 @@ import pytesseract
 import cv2
 import os
 from rules import detect_red_flags
+from claims import extract_claims
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-image_path = os.path.join(os.path.dirname(__file__), "scam1.jpeg")
+image_path = os.path.join(os.path.dirname(__file__), "scam1.jpeg") 
 img = cv2.imread(image_path)
 
 if img is None:
@@ -13,9 +14,9 @@ if img is None:
         f"Could not read image: {image_path}"
     )
 
-#cv2.imshow("window", img)
-#cv2.waitKey(0)  
-#cv2.destroyAllWindows()
+'''cv2.imshow("window", img)
+cv2.waitKey(0)  
+cv2.destroyAllWindows()'''
 
 def clean_ocr_text(text):
     lines = []
@@ -39,3 +40,17 @@ if red_flags:
 
 else:
     print("No configured warning patterns detected.")
+
+
+claims = extract_claims(cleaned_text)
+
+print("\n EXTRACTED CLAIMS \n")
+
+if claims:
+    for claim in claims:
+        print(f"Category: {claim['category']}")
+        print(f"Matched phrase: {claim['matched_phrase']}")
+        print(f"Status: {claim['status']}")
+        print()
+else:
+    print("No configured claims detected.")
