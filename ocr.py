@@ -37,15 +37,12 @@ print("\n   RISK INDICATORS  \n")
 if red_flags:
     for flag in red_flags:
         print(f" WARNING: {flag['category']} : {flag['matched_scam_message']} claim detected... \n")
-
 else:
     print("No configured warning patterns detected.")
-
 
 claims = extract_claims(cleaned_text)
 
 print("\n EXTRACTED CLAIMS \n")
-
 if claims:
     for claim in claims:
         print(f"Category: {claim['category']}")
