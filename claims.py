@@ -21,6 +21,7 @@ def extract_claims(text):
             "act now",
             "today only",
             "last chance"
+            "immediate action"
         ]
     }
 
